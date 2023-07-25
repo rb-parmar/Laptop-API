@@ -6,11 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 
-/*app.MapGet("laptops", () =>
+/*app.MapGet("brands", () =>
 {
-    return Results.Ok(WebApplication1.Models.Database.Laptops);
-});
-*/
+    return Results.Ok(WebApplication1.Models.Database.Brands);
+});*/
+
 // order laptops
 app.MapGet("laptops/orderby", (string det) =>
 {
@@ -130,5 +130,24 @@ app.MapGet("laptops/most-priced_laptop", (int price) =>
         return Results.Problem(ex.Message);
     }
 });
+
+// all brands and all their laptops
+app.MapGet("brands", () =>
+{
+    return Results.Ok(WebApplication1.Models.Database.Brands);
+});
+
+// posting when a laptop is viewed
+app.MapPost("laptops/id", (int id) =>
+{
+    if (id < 0)
+    {
+        throw new ArgumentOutOfRangeException(nameof(id));
+    }
+
+    Laptops foundLaptop = WebApplication1.Models.Database.Laptops.First(l => { return l.Id == id; });
+    return Results.Ok(foundLaptop.ViewCount++);
+});
+
 app.Run();
 

@@ -28,6 +28,7 @@
 
             Laptops newLaptop = new Laptops(_pk_laptop++, name, brand, price, yearOfMake, quantity, type);
             Laptops.Add(newLaptop);
+            brand.Laptops.Add(newLaptop);
         }
         private static void _seedMethodLaptops()
         {
