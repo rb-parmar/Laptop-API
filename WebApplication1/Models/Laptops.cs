@@ -5,7 +5,7 @@
         // fields
         public int Id { get; set; }
         public string Model { get; set; }
-        public Brands Brand { get; set; }
+        public string Brand { get; set; }
         private double _price;
         public double Price
         {
@@ -63,7 +63,7 @@
         {
             Id = id;
             Model = name;
-            Brand = brand;
+            Brand = brand.Name;
             Price = price;
             YearOfMake = yearOfMake;
             Quantity = quantity;
