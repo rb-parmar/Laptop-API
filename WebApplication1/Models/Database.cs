@@ -51,7 +51,7 @@
                 throw new ArgumentOutOfRangeException("name");
             } else
             {
-                Brands newBrand = new Brands(_pk_laptop++, name);
+                Brands newBrand = new Brands(_pk_brand++, name);
                 Brands.Add(newBrand);
             }
         }
