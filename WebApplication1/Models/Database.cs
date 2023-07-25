@@ -36,7 +36,7 @@
             CreateLaptop("Inspiron", Brands.ElementAt(0), 900.00, 2020, 2, "Rental");
 
             CreateLaptop("Envy", Brands.ElementAt(1), 1200.00, 2022, 3, "New");
-            CreateLaptop("Omen", Brands.ElementAt(1), 1000.00, 2020, 2, "Refurbished");
+            CreateLaptop("Omen", Brands.ElementAt(1), 1100.00, 2020, 2, "Refurbished");
             CreateLaptop("Pavillion", Brands.ElementAt(1), 950.50, 2021, 1, "Rental");
 
             CreateLaptop("Legion", Brands.ElementAt(2), 1050.00, 2022, 3, "New");
