@@ -4,10 +4,10 @@
     {
         // fields
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Model { get; set; }
         public Brands Brand { get; set; }
-        private decimal _price;
-        public decimal Price
+        private double _price;
+        public double Price
         {
             get { return _price; }
             set
@@ -57,10 +57,12 @@
         public int ViewCount { get; set; }
 
         public Laptops() { }    
-        public Laptops(int id, string name, Brands brand, decimal price, int yearOfMake, int quantity, string type, int viewCount = 0)
+
+        // Constructor
+        public Laptops(int id, string name, Brands brand, double price, int yearOfMake, int quantity, string type, int viewCount = 0)
         {
             Id = id;
-            Name = name;
+            Model = name;
             Brand = brand;
             Price = price;
             YearOfMake = yearOfMake;
