@@ -1,14 +1,15 @@
+using System.Diagnostics.Metrics;
 using WebApplication1.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 
-app.MapGet("laptops", () =>
+/*app.MapGet("laptops", () =>
 {
     return Results.Ok(WebApplication1.Models.Database.Laptops);
 });
-
+*/
 // order laptops
 app.MapGet("laptops/orderby", (string det) =>
 {
@@ -41,6 +42,43 @@ app.MapGet("laptops/orderby", (string det) =>
 });
 
 // list laptops within a range
+app.MapGet("laptops/search/price-range", (double? highest, double? lowest) =>
+{
+    try
+    {
+        if (highest == null && lowest == null)
+        {
+            return Results.BadRequest("At least one value must be provided for highest and lowest parameters.");
+        }
 
+        if (lowest == null)
+        {
+            lowest = Int32.MinValue;
+        }
+
+        if (highest == null)
+        {
+            highest = Int32.MaxValue;
+        }
+
+        if (highest < lowest)
+        {
+            return Results.BadRequest("Cannot request laptops with the highest price being lower than the lowest price.");
+        }
+
+        HashSet<Laptops> filteredLaptops =
+        WebApplication1.Models.Database.Laptops.Where(l => l.Price <= highest && l.Price >= lowest).ToHashSet();
+
+        return Results.Ok(filteredLaptops);
+    }
+    catch (InvalidOperationException ex)
+    {
+        return Results.Problem(ex.Message);
+    }
+    catch (Exception ex) 
+    {
+        return Results.Problem(ex.Message);
+    }
+});
 app.Run();
 
