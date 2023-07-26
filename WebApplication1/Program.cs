@@ -22,11 +22,11 @@ app.MapGet("laptops/orderby", (string det) =>
             HashSet<Laptops> laptops = WebApplication1.Models.Database.Laptops;
             if (det == "asc")
             {
-                return Results.Ok(laptops.OrderByDescending(laptop => laptop.Price));
+                return Results.Ok(laptops.OrderBy(laptop => laptop.Price));
             }
             else
             {
-                return Results.Ok(laptops.OrderBy(laptop => laptop.Price));
+                return Results.Ok(laptops.OrderByDescending(laptop => laptop.Price));
             }
         } else
         {
@@ -166,7 +166,6 @@ app.MapPost("laptops/add", (string name, string brandName, double price, int yea
 
     Database.CreateLaptop(name, brand, price, year, quantity, type);
 });
-
 
 app.Run();
 
