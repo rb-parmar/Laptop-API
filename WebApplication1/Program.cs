@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Components.Forms;
 using System.Diagnostics.Metrics;
 using System.Text.RegularExpressions;
 using WebApplication1.Models;
@@ -148,6 +149,24 @@ app.MapPost("laptops/id", (int id) =>
     Laptops foundLaptop = WebApplication1.Models.Database.Laptops.First(l => { return l.Id == id; });
     return Results.Ok(foundLaptop.ViewCount++);
 });
+
+// posting a new laptop 
+app.MapPost("laptops/add", (string name, string brandName, double price, int year, int quantity, string type) =>
+{
+    if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(type) || string.IsNullOrEmpty(brandName))
+    {
+        throw new InvalidDataException("Input cannot be empty");
+    }
+    if (price < 0 || year < 0 || year > 2023 || quantity < 0)
+    {
+        throw new ArgumentOutOfRangeException("Inputs provided are not within the given ranges.");
+    }
+
+    Brands brand = Database.Brands.First(b => b.Name.ToLower() == brandName.ToLower());
+
+    Database.CreateLaptop(name, brand, price, year, quantity, type);
+});
+
 
 app.Run();
 
