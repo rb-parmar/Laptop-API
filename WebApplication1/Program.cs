@@ -153,32 +153,28 @@ app.MapPost("laptops/id", (int id) =>
 // posting a new laptop 
 app.MapPost("laptops/add", (string name, string brandName, double price, int year, int quantity, string type) =>
 {
-    try
-    {
+    
         if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(type) || string.IsNullOrEmpty(brandName))
         {
-            throw new InvalidDataException("Input cannot be empty");
+            Results.Problem("Input cannot be empty");
         }
         if (price < 0 || year < 0 || year > 2023 || quantity < 0)
         {
-            throw new ArgumentOutOfRangeException("Inputs provided are not within the given ranges.");
+            Results.Problem("Inputs provided are not within the given ranges.");
         }
 
         Brands brand = Database.Brands.First(b => b.Name.ToLower() == brandName.ToLower());
 
         if (brand == null)
         {
-            throw new IndexOutOfRangeException(nameof(brand));
+        Results.Problem("Brand cannot be null.");
         }
         else
         {
             Database.CreateLaptop(name, brand, price, year, quantity, type);
         }
 
-    } catch (Exception ex) 
-    {
-        return Results.Problem(ex.Message);
-    }
+    
 
 });
 
