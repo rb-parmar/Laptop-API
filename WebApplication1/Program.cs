@@ -7,10 +7,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 
-/*app.MapGet("brands", () =>
-{
-    return Results.Ok(WebApplication1.Models.Database.Brands);
-});*/
 
 // order laptops
 app.MapGet("laptops/orderby", (string det) =>
@@ -173,9 +169,6 @@ app.MapPost("laptops/add", (string name, string brandName, double price, int yea
         {
             Database.CreateLaptop(name, brand, price, year, quantity, type);
         }
-
-    
-
 });
 
 app.Run();
